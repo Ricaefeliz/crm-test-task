@@ -9,6 +9,7 @@ use App\Customer\Customer;
 use App\Order\Item\Item;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
 
@@ -60,7 +61,7 @@ class Order
 	protected $createdAt;
 
 	/**
-	 * @var ArrayCollection
+	 * @var ArrayCollection|PersistentCollection|Item[]
 	 * @ORM\OneToMany(targetEntity="App\Order\Item\Item", mappedBy="order", cascade={"persist", "remove"})
 	 */
 	protected $items;
@@ -74,6 +75,7 @@ class Order
 	 * @param string $name
 	 * @param string $surname
 	 * @param float $priceSummary
+	 * @throws \Exception
 	 */
 	public function __construct(Customer $customer,
 								Card $card,
@@ -86,6 +88,7 @@ class Order
 		$this->name = $name;
 		$this->surname = $surname;
 		$this->priceSummary = $priceSummary;
+		$this->createdAt = new \DateTime();
 		$this->items = new ArrayCollection();
 	}
 
@@ -159,5 +162,15 @@ class Order
 	{
 		$this->items->add($item);
 		$this->priceSummary += $item->getPrice();
+	}
+
+
+
+	/**
+	 * @return ArrayCollection|PersistentCollection|Item[]
+	*/
+	public function getItems()
+	{
+		return $this->items;
 	}
 }
