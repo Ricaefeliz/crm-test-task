@@ -104,6 +104,14 @@ final class RegistrationForm extends Control
 
 
 
+	public function render()
+	{
+		$this->template->setFile(__DIR__ . '/template.latte');
+		$this->template->render();
+	}
+
+
+
 	/**
 	 * @return array
 	 */
