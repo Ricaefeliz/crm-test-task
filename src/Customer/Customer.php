@@ -140,4 +140,12 @@ class Customer
 	}
 
 
+
+	/**
+	 * @return string
+	*/
+	public function getFullName(): string
+	{
+		return $this->getSurname() . ' ' . $this->getName();
+	}
 }

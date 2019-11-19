@@ -1,0 +1,18 @@
+{block content}
+<h1>Customer search</h1>
+{control searchForm}
+
+<hr>
+
+{if !$query}
+    Fill a query.
+{else}
+    On query <b>{$query}</b> we found {php echo count($customers)} customers.
+    {if $customers}
+        <ul>
+            {foreach $customers as $customer}
+                <li>{$customer->getFullName()}</li>
+            {/foreach}
+        </ul>
+    {/if}
+{/if}
