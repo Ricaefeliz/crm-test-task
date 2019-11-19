@@ -70,7 +70,8 @@ final class RegistrationForm extends Control
 			->setRequired('Fill the telephone')
 			->setMaxLength(20);
 		$form->addSelect('card', 'Card*', $this->getCardList())
-			->setPrompt('-select-');
+			->setPrompt('-select-')
+			->setRequired('Choose a card');
 		$form->addSubmit('submit', 'Register');
 		$form->onSuccess[] = [$this, 'formSuccess'];
 
