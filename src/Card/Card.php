@@ -53,8 +53,19 @@ class Card
 
 
 
+	/**
+	 * Card constructor.
+	 * @param int $number
+	 * @param string $type
+	 * @throws UnknownTypeException
+	 */
 	public function __construct(int $number, string $type = self::TEMPORARY_TYPE)
 	{
+		$types = self::getTypes();
+		if (in_array($type, $types, TRUE) === FALSE) {
+			throw new UnknownTypeException(sprintf('Unknown type \'%s\'. Allowed: \'%s\'', $type, implode('\',\'', $types)));
+		}
+
 		$this->number = $number;
 		$this->type = $type;
 		$this->createdAt = new \DateTime();
@@ -122,5 +133,18 @@ class Card
 	public function hasCustomer(): bool
 	{
 		return $this->getCustomer() instanceof Customer;
+	}
+
+
+
+	/**
+	 * @return array
+	 */
+	public static function getTypes(): array
+	{
+		return [
+			self::BASIC_TYPE,
+			self::TEMPORARY_TYPE,
+		];
 	}
 }

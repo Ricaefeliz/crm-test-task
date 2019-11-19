@@ -35,3 +35,14 @@ class CardNotFoundException extends \Exception
 
 
 }
+
+
+/**
+ * Class UnknownTypeException
+ * @package App\Card
+ */
+class UnknownTypeException extends \Exception
+{
+
+
+}
