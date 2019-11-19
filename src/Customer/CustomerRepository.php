@@ -37,6 +37,26 @@ class CustomerRepository extends EntityRepository
 
 
 	/**
+	 * @param $email string
+	 * @return Customer
+	 * @throws CustomerNotFoundException
+	*/
+	public function getOneByEmail(string $email): Customer
+	{
+		$customer = $this->findBy([
+			'email' => $email,
+		]);
+
+		if (!$customer) {
+			throw new CustomerNotFoundException('Customer not found.');
+		}
+
+		return $customer;
+	}
+
+
+
+	/**
 	 * @param $id array
 	 * @return Customer[]|array
 	 */

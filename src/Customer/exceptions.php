@@ -6,6 +6,16 @@ namespace App\Customer;
 
 
 /**
+ * Class CustomerFacadeException
+ * @package App\Customer
+ */
+class CustomerFacadeException extends \Exception
+{
+
+
+}
+
+/**
  * Class CustomerNotFoundException
  * @package App\Customer
  */
