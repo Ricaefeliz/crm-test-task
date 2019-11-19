@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Order\Item;
 
 use App\Order\Order;
+use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
 
 /**
  * Class Item
  * @package App\Order\Item
+ * @ORM\Entity
  */
 class Item
 {
