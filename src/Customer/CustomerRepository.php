@@ -23,7 +23,7 @@ class CustomerRepository extends EntityRepository
 	 */
 	public function getOneById(int $id): Customer
 	{
-		$customer = $this->findBy([
+		$customer = $this->findOneBy([
 			'id' => $id,
 		]);
 
@@ -43,7 +43,7 @@ class CustomerRepository extends EntityRepository
 	*/
 	public function getOneByEmail(string $email): Customer
 	{
-		$customer = $this->findBy([
+		$customer = $this->findOneBy([
 			'email' => $email,
 		]);
 
