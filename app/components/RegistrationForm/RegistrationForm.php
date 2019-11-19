@@ -53,23 +53,24 @@ final class RegistrationForm extends Control
 	public function createComponentForm(): Form
 	{
 		$form = new Form();
-		$form->addText('name', 'Name')
+		$form->addText('name', 'Name*')
 			->setRequired('Fill the name')
 			->setMaxLength(50);
-		$form->addText('surname', 'Surname')
+		$form->addText('surname', 'Surname*')
 			->setRequired('Fill the surname')
 			->setMaxLength(50);
-		$form->addText('address', 'Address')
+		$form->addText('address', 'Address*')
 			->setRequired('Fill the address')
 			->setMaxLength(100);
-		$form->addText('email', 'E-mail')
+		$form->addText('email', 'E-mail*')
 			->setRequired('Fill the e-mail')
 			->setMaxLength(50)
 			->addRule(Form::EMAIL, 'E-mail does not have a valid format');
-		$form->addText('telephone', 'Telephone')
+		$form->addText('telephone', 'Telephone*')
 			->setRequired('Fill the telephone')
 			->setMaxLength(20);
-		$form->addSelect('card', 'Card', $this->getCardList());
+		$form->addSelect('card', 'Card*', $this->getCardList())
+			->setPrompt('-select-');
 		$form->addSubmit('submit', 'Register');
 		$form->onSuccess[] = [$this, 'formSuccess'];
 
