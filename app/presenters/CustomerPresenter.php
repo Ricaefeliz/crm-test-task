@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Card\CardFacadeFactory;
 use App\Components\SearchForm\SearchForm;
 use App\Components\SearchForm\SearchFormFactory;
 use App\Customer\CustomerFacadeFactory;
@@ -16,6 +17,9 @@ use Nette\Application\UI\Presenter;
 final class CustomerPresenter extends Presenter
 {
 
+
+	/** @var CardFacadeFactory @inject */
+	public $cardFacadeFactory;
 
 	/** @var CustomerFacadeFactory @inject */
 	public $customerFacadeFactory;
@@ -38,6 +42,21 @@ final class CustomerPresenter extends Presenter
 
 		$this->template->customers = $customers ?? [];
 		$this->template->query = $query;
+	}
+
+
+
+	/**
+	 * @return void
+	 */
+	public function actionReport()
+	{
+		$cardFacade = $this->cardFacadeFactory->create();
+		$customerFacade = $this->customerFacadeFactory->create();
+
+		$this->template->assignedCardCount = $cardFacade->countAssigned();
+		$this->template->customerCount = $customerFacade->getCount();
+		$this->template->topCustomers = $customerFacade->findByRevenue();
 	}
 
 

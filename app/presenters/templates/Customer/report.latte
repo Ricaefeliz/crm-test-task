@@ -1,0 +1,16 @@
+{block content}
+<h1>Customer report</h1>
+
+<p>Customer count: {$customerCount}</p>
+<p>Assigned card count: {$assignedCardCount}</p>
+<p>Top customers by revenue:
+    {if $topCustomers}
+    <ul>
+        {foreach $topCustomers as $topCustomer}
+            <li>{$topCustomer->getCustomer()->getFullName()} - {$topCustomer->getRevenue()|number:2:',':' '}</li>
+        {/foreach}
+    </ul>
+{else}
+    -
+{/if}
+</p>
