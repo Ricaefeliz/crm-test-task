@@ -14,6 +14,7 @@ use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
 /**
  * @package App\Order
+ * @ORM\Table(name="`order`")
  * @ORM\Entity(repositoryClass="App\Order\OrderRepository")
  */
 class Order
@@ -24,13 +25,13 @@ class Order
 
 	/**
 	 * @var Customer
-	 * @ORM\OneToOne(targetEntity="App\Customer\Customer")
+	 * @ORM\ManyToOne(targetEntity="App\Customer\Customer")
 	 */
 	protected $customer;
 
 	/**
 	 * @var Card
-	 * @ORM\OneToOne(targetEntity="App\Card\Card")
+	 * @ORM\ManyToOne(targetEntity="App\Card\Card")
 	 */
 	protected $card;
 
