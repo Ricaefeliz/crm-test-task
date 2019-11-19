@@ -36,4 +36,15 @@ final class CustomerFacade
 	{
 		return $this->customerRepo->count([]);
 	}
+
+
+
+	/**
+	 * @param $query string
+	 * @return Customer[]|array
+	 */
+	public function findByQuery(string $query): array
+	{
+		return $this->customerRepo->findByQuery($query);
+	}
 }

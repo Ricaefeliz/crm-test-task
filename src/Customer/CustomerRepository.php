@@ -32,4 +32,31 @@ class CustomerRepository extends EntityRepository
 
 		return $customer;
 	}
+
+
+
+	/**
+	 * @param $query string
+	 * @return Customer[]|array
+	 */
+	public function findByQuery(string $query): array
+	{
+		$qb = $this->createQueryBuilder('c');
+		return $qb
+			->where('c.name LIKE :query')
+			->orWhere()
+			->where('c.surname LIKE :query')
+			->orWhere()
+			->where($qb->expr()->in(
+				'c.id',
+				$this->createQueryBuilder('card')
+					->select('card.customer')
+					->from('Card', 'Card')
+					->where('card.id = :query')
+					->getDQL()
+			))
+			->setParameter('query', '%' . $query . '%')
+			->getQuery()
+			->getResult();
+	}
 }
