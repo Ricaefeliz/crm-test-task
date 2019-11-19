@@ -75,9 +75,9 @@ class CardRepository extends EntityRepository
 	public function countAssigned(): int
 	{
 		try {
-			$result = (int)$this->_em->createQueryBuilder()
-				->select('count(card.id)')
-				->where('customer IS NOT NULL')
+			$result = (int)$this->createQueryBuilder('c')
+				->select('count(c.id)')
+				->where('c.customer IS NOT NULL')
 				->getQuery()
 				->getSingleScalarResult();
 		} catch (NoResultException $e) {
