@@ -76,19 +76,20 @@ class CustomerRepository extends EntityRepository
 	public function findByQuery(string $query): array
 	{
 		$qb = $this->createQueryBuilder('c');
+		$subQuery = $this->getEntityManager()
+			->createQueryBuilder()
+			->select('IDENTITY(card.customer)')
+			->from(Card::class, 'card')
+			->where('card.number LIKE :query')
+			->getDQL();
+		$where = $qb->expr()->orX(
+			$qb->expr()->like('c.name', ':query'),
+			$qb->expr()->like('c.surname', ':query'),
+			$qb->expr()->in('c.id', $subQuery)
+		);
+
 		return $qb
-			->where('c.name LIKE :query')
-			->orWhere()
-			->where('c.surname LIKE :query')
-			->orWhere()
-			->where($qb->expr()->in(
-				'c.id',
-				$this->createQueryBuilder('card')
-					->select('card.customer')
-					->from(Card::class, 'Card')
-					->where('card.number = :query')
-					->getDQL()
-			))
+			->andWhere($where)
 			->setParameter('query', '%' . $query . '%')
 			->getQuery()
 			->getResult();
