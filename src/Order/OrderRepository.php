@@ -23,10 +23,9 @@ class OrderRepository extends EntityRepository
 	public function findHighestCustomerRevenue(int $limit = 10): array
 	{
 		$list = [];
-		$result = $this->_em->createQueryBuilder()
-			->select('customer, SUM(priceSummary) AS revenue')
-			->from(Order::class, 'order')
-			->addGroupBy('customer')
+		$result = $this->createQueryBuilder('o')
+			->select('IDENTITY(o.customer) AS customer, SUM(o.priceSummary) AS revenue')
+			->addGroupBy('o.customer')
 			->setMaxResults(10)
 			->orderBy('revenue', Criteria::DESC)
 			->getQuery()
