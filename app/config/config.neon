@@ -41,3 +41,4 @@ services:
 			doctrine.repositoryEntity: App\Order\Order
 
 	- App\Components\RegistrationForm\RegistrationFormFactory
+	- App\Components\SearchForm\SearchFormFactory
