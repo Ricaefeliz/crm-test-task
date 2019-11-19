@@ -1,0 +1,9 @@
+parameters:
+
+
+doctrine:
+	user:
+	password:
+	dbname: crm
+	metadata:
+		App: %appDir%/../src
