@@ -66,7 +66,7 @@ class CustomerRepository extends EntityRepository
 				$this->createQueryBuilder('card')
 					->select('card.customer')
 					->from(Card::class, 'Card')
-					->where('card.id = :query')
+					->where('card.number = :query')
 					->getDQL()
 			))
 			->setParameter('query', '%' . $query . '%')

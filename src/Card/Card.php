@@ -36,6 +36,12 @@ class Card
 	protected $type;
 
 	/**
+	 * @var int
+	 * @ORM\Column(type="integer", length=10)
+	 */
+	protected $number;
+
+	/**
 	 * @var \DateTime
 	 * @ORM\Column(type="datetime")
 	 */
@@ -43,8 +49,9 @@ class Card
 
 
 
-	public function __construct(string $type = self::TEMPORARY_TYPE)
+	public function __construct(int $number, string $type = self::TEMPORARY_TYPE)
 	{
+		$this->number = $number;
 		$this->type = $type;
 		$this->createdAt = new \DateTime();
 	}
@@ -71,6 +78,16 @@ class Card
 	public function getCustomer(): ?Customer
 	{
 		return $this->customer;
+	}
+
+
+
+	/**
+	 * @return int
+	 */
+	public function getNumber(): int
+	{
+		return $this->number;
 	}
 
 
