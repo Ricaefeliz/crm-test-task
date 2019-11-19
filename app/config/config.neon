@@ -6,6 +6,10 @@ application:
 	mapping:
 		*: App\*Module\Presenters\*Presenter
 
+console:
+    commands:
+        - App\Card\CardGeneratingCommand
+
 extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
 	events: Kdyby\Events\DI\EventsExtension
@@ -18,3 +22,22 @@ session:
 
 services:
 	router: App\Router\RouterFactory::createRouter
+
+	- App\Card\CardFacadeFactory
+	cardRepository:
+	    class: App\Card\CardRepository
+	    tags:
+	        doctrine.repositoryEntity: App\Card\Card
+
+	- App\Customer\CustomerFacadeFactory
+	customerRepository:
+	    class: App\Customer\CustomerRepository
+	    tags:
+	        doctrine.repositoryEntity: App\Customer\Customer
+
+	orderRepository:
+		class: App\Order\OrderRepository
+		tags:
+			doctrine.repositoryEntity: App\Order\Order
+
+	- App\Components\RegistrationForm\RegistrationFormFactory
