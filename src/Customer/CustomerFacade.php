@@ -106,11 +106,11 @@ final class CustomerFacade
 	public function findByRevenue(int $limit = 10): array
 	{
 		$customersDTO = [];
-		$revenue = $this->orderRepo->findHighestCustomerRevenue($limit);
-		if ($revenue) {
-			$customers = $this->customerRepo->findByMoreId(array_keys($revenue));
-			foreach ($revenue as $r) {
-				$customersDTO[] = new CustomerDTO($customers[$r['customer']], $r['revenue']);
+		$revenues = $this->orderRepo->findHighestCustomerRevenue($limit);
+		if ($revenues) {
+			$customers = $this->customerRepo->findByMoreId(array_keys($revenues));
+			foreach ($revenues as $customerId => $revenue) {
+				$customersDTO[] = new CustomerDTO($customers[$customerId], (float)$revenue);
 			}
 		}
 		return $customersDTO;
