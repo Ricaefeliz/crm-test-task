@@ -62,9 +62,11 @@ class CustomerRepository extends EntityRepository
 	 */
 	public function findByMoreId(array $id): array
 	{
-		return $this->findBy([
-			'id' => $id,
-		]);
+		$qb = $this->createQueryBuilder('c', 'c.id');
+		return $qb
+			->where($qb->expr()->in('c.id', $id))
+			->getQuery()
+			->getResult();
 	}
 
 
