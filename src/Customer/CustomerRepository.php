@@ -36,6 +36,19 @@ class CustomerRepository extends EntityRepository
 
 
 	/**
+	 * @param $id array
+	 * @return Customer[]|array
+	 */
+	public function findByMoreId(array $id): array
+	{
+		return $this->findBy([
+			'id' => $id,
+		]);
+	}
+
+
+
+	/**
 	 * @param $query string
 	 * @return Customer[]|array
 	 */
