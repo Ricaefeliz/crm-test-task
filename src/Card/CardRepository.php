@@ -18,6 +18,26 @@ class CardRepository extends EntityRepository
 
 
 	/**
+	 * @param $number int
+	 * @return Card
+	 * @throws CardNotFoundException
+	 */
+	public function getOneByNumber(int $number): Card
+	{
+		$card = $this->findOneBy([
+			'number' => $number,
+		]);
+
+		if (!$card) {
+			throw new CardNotFoundException('Card not found.');
+		}
+
+		return $card;
+	}
+
+
+
+	/**
 	 * @param $id int
 	 * @return Card
 	 * @throws CardNotFoundException

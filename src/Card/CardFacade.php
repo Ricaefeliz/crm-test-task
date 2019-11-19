@@ -48,6 +48,34 @@ final class CardFacade
 
 
 	/**
+	 * @param $type string
+	 * @param $number int
+	 * @return Card
+	 * @throws CardFacadeException
+	 * @throws ORMException
+	 */
+	public function add(string $type, int $number): Card
+	{
+		try {
+			$this->cardRepo->getOneByNumber($number);
+			throw new CardFacadeException(sprintf('Card with number \'%s\' exists already.', $number));
+		} catch (CardNotFoundException $e) {
+		}
+
+		try {
+			$card = new Card($number, $type);
+			$this->entityManager->persist($card);
+			$this->entityManager->flush();
+
+			return $card;
+		} catch (UnknownTypeException $exception) {
+			throw new CardFacadeException($exception->getMessage(), 0, $exception);
+		}
+	}
+
+
+
+	/**
 	 * @return Card[]|array
 	 */
 	public function findWithoutCustomer(): array
