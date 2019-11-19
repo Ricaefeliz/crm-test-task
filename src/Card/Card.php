@@ -12,6 +12,10 @@ use Kdyby\Doctrine\Entities\Attributes\Identifier;
 /**
  * @package App\Card
  * @ORM\Entity(repositoryClass="App\Card\CardRepository")
+ * @ORM\Table(name="number", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="number", columns={"number"})
+ *        }
+ * )
  */
 class Card
 {
