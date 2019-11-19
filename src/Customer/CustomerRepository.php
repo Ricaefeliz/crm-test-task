@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Customer;
 
+use App\Card\Card;
 use Doctrine\ORM\EntityRepository;
 
 
@@ -64,7 +65,7 @@ class CustomerRepository extends EntityRepository
 				'c.id',
 				$this->createQueryBuilder('card')
 					->select('card.customer')
-					->from('Card', 'Card')
+					->from(Card::class, 'Card')
 					->where('card.id = :query')
 					->getDQL()
 			))
